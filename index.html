@@ -16,18 +16,20 @@
     <div id="gameBoard"></div>
 
     <div class="controls">
+      <!-- Seed Selector and new filtering checkbox -->
       <select id="seedSelector"></select>
+      <label id="filterLabel">
+        <input type="checkbox" id="plantableOnlyCheckbox"> Only Plantable Plants (Current Season)
+      </label>
+      
       <button onclick="sellAll()">Sell All Crops</button>
       <button onclick="saveGame()">💾 Save</button>
       <button onclick="loadGame()">📂 Load</button>
       <button onclick="toggleInventory()">📦 Toggle Inventory</button>
     </div>
 
-
     <div id="messageArea"></div>
     <div id="hoverInfo"></div>
-
-
 
     <div id="inventoryPanel" class="hidden">
       <h2>Inventory</h2>
