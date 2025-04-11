@@ -24,7 +24,7 @@ class Plant {
   }
 }
 
-const plant_list = [
+const plantList = [
   new Plant("Wheat", 2, 5, 1, 10, 2, 4),
   new Plant("Carrot", 4, 2, 1, 5, 2, 10, ["Spring", "Autumn"]),
   new Plant("Tomato", 8, 3, 1, 7, 2, 16, ["Summer"], {"Summer": 1.5}),
