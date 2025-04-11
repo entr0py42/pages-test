@@ -87,6 +87,7 @@
   const inventoryList = document.getElementById('inventoryList');
   const inventoryPanel = document.getElementById('inventoryPanel');
   
+  // Update the seed selector with options and attach the wheel event listener.
   function renderSeedSelector() {
     plantList.forEach((plant, i) => {
       const option = document.createElement('option');
@@ -95,8 +96,60 @@
       seedSelector.appendChild(option);
     });
   
+    // When the user changes selection by clicking
     seedSelector.addEventListener('change', (e) => {
       selectedPlant = plantList[e.target.value];
+    });
+    
+    // Add mouse scroll (wheel) event
+    seedSelector.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY;
+      let currentIndex = seedSelector.selectedIndex;
+      const currentSeason = getSeason();
+      const filterCheckbox = document.getElementById("plantableOnlyCheckbox");
+  
+      // If filtering is enabled, filter for plantable plants only
+      if (filterCheckbox.checked) {
+        // Create an array of objects with plant and index
+        const filtered = plantList.map((p, index) => ({ plant: p, index }))
+                                   .filter(obj => obj.plant.seasons.includes(currentSeason));
+        
+        if (filtered.length === 0) {
+          // Fallback: if no plants are available for the current season
+          showMessage(`No plants available for ${currentSeason}.`);
+          return;
+        }
+        
+        // Find the index within the filtered array that matches the current selection
+        let filteredIndex = filtered.findIndex(obj => obj.index === currentIndex);
+        if (filteredIndex === -1) {
+          // If the currently selected plant is not plantable this season, reset to first filtered element.
+          filteredIndex = 0;
+        }
+        
+        // Cycle based on scroll direction.
+        if (delta > 0) {
+          filteredIndex = (filteredIndex + 1) % filtered.length;
+        } else {
+          filteredIndex = (filteredIndex - 1 + filtered.length) % filtered.length;
+        }
+        
+        // Update seed selector with the new selection
+        const newIndex = filtered[filteredIndex].index;
+        seedSelector.selectedIndex = newIndex;
+        selectedPlant = plantList[newIndex];
+      } else {
+        // Otherwise, cycle through all plants normally.
+        const total = seedSelector.options.length;
+        if (delta > 0) {
+          currentIndex = (currentIndex + 1) % total;
+        } else {
+          currentIndex = (currentIndex - 1 + total) % total;
+        }
+        seedSelector.selectedIndex = currentIndex;
+        selectedPlant = plantList[currentIndex];
+      }
     });
   }
   
