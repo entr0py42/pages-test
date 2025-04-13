@@ -57,10 +57,10 @@ function randomRange(base, range) {
 
 function getSeason() {
   const hour = new Date().getHours();
-  if (hour < 10) return "Spring";
-  if (hour < 13) return "Summer";
-  if (hour < 15) return "Autumn";
-  return "Winter";
+  if (hour < 6) return "Winter";
+  if (hour < 12) return "Spring";
+  if (hour < 18) return "Summer";
+  return "Autumn";
 }
 
 // --- Game State ---
