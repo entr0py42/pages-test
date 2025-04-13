@@ -42,11 +42,11 @@ h1 {
 .tile.empty:hover {
   background-color: #e0ffe0;
 }
-
+/*
 .tile.selected {
   outline: 2px solid #007acc;
 }
-
+*/
 .controls {
   display: flex;
   flex-wrap: wrap;
